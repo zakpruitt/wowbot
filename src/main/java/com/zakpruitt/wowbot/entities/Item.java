@@ -28,39 +28,32 @@ public class Item {
     private int durability;
     private String durabilityString;
     private Color color;
+    private String thumbnail;
 
     public Item() {
 
     }
 
-    public Item(double itemId, String itemName, String itemClass, String itemSubclass, String inventoryType, String quality, String binding, double minimumDamage, double maximumDamage, String damageString, String damageClass, double dps, String dpsString, double attackSpeed, String attackSpeedString, ArrayList<String> stats, ArrayList<String> spells, int levelRequirement, String levelRequirementString, int durability, String durabilityString) {
-        this.itemId = itemId;
-        this.itemName = itemName;
-        this.itemClass = itemClass;
-        this.itemSubclass = itemSubclass;
-        this.inventoryType = inventoryType;
-        this.quality = quality;
-        this.binding = binding;
-        this.minimumDamage = minimumDamage;
-        this.maximumDamage = maximumDamage;
-        this.damageString = damageString;
-        this.damageClass = damageClass;
-        this.dps = dps;
-        this.dpsString = dpsString;
-        this.attackSpeed = attackSpeed;
-        this.attackSpeedString = attackSpeedString;
-        this.stats = stats;
-        this.spells = spells;
-        this.levelRequirement = levelRequirement;
-        this.levelRequirementString = levelRequirementString;
-        this.durability = durability;
-        this.durabilityString = durabilityString;
-    }
-
-    @PostConstruct
-    void DetermineColor() {
+    public void determineColor() {
         switch (this.quality) {
-
+            case "Poor":
+                color = Color.decode("#9d9d9d");
+                break;
+            case "Common":
+                color = Color.decode("#ffffff");
+                break;
+            case "Uncommon":
+                color = Color.decode("#1eff00");
+                break;
+            case "Rare":
+                color = Color.decode("#0070dd");
+                break;
+            case "Epic":
+                color = Color.decode("#a335ee");
+                break;
+            case "Legendary":
+                color = Color.decode("#ff8000");
+                break;
         }
     }
 
@@ -238,5 +231,13 @@ public class Item {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }
