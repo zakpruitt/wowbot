@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Component
 public class ItemListenerImplementation implements ItemListener {
 
-    private final static Pattern pattern = Pattern.compile("!item (\\w+)");
+    private final static Pattern pattern = Pattern.compile("!item (.+)");
     @Autowired
     MessagingService messagingService;
     @Autowired
@@ -28,7 +28,8 @@ public class ItemListenerImplementation implements ItemListener {
         if (messageCreateEvent.getMessageContent().startsWith("!item")) {
             Matcher matcher = pattern.matcher(messageCreateEvent.getMessageContent());
             if (matcher.matches()) {
-                String itemSearch = matcher.group(1);
+                String itemSearch = matcher.group(0).replace("!item", "").trim();
+                System.out.println(itemSearch + " <-- This is the search");
                 try {
                     Item item = itemService.getItem(itemSearch);
                     messageCreateEvent.getChannel().sendMessage(new EmbedBuilder()
@@ -50,6 +51,7 @@ public class ItemListenerImplementation implements ItemListener {
                                     "Try looking here: " +
                                     String.format("https://www.wowhead.com/search?q=%s", itemSearch))
                             .setColor(Color.red)
+                            .setThumbnail("https://images.squarespace-cdn.com/content/v1/5b21b02fa2772c3cf363b577/1587614510776-2CLVW62M1WPES2XAPVPJ/premium-600.png?format=1500w")
                     );
                     ex.printStackTrace();
                 }

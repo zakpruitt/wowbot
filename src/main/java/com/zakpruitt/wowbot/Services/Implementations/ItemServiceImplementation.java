@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.util.Iterator;
 
 @Component
@@ -33,6 +30,7 @@ public class ItemServiceImplementation implements ItemService {
         String blizzToken = env.getProperty("BLIZZ_TOKEN");
         Item item = new Item();
 
+        search = URLEncoder.encode(search);
         String searchURL = String.format("https://us.api.blizzard.com/data/wow/search/item?namespace=static-us&name.en_US=%1$s&orderby=id&_page=1&access_token=%2$s", search, blizzToken);
         JSONObject searchJSON = JSONParserUtility.ParseJSON(searchURL);
         int itemId = searchJSON
